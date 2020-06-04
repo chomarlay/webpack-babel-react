@@ -1,0 +1,65 @@
+mkdir webpack-babel-react
+cd webpack-babel-react
+mkdir src
+npm init -y
+npm i webpack webpack-cli --save-dev
+-- add in package.json
+"scripts": {
+  "build": "webpack --mode production"
+}
+-- configure babel loader to transpile for older browser
+--babel preset env for compiling modern Javascript down to ES5
+--babel preset react for compiling JSX and other stuff down to Javascript
+
+npm i @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev
+
+-- Create a new file named .babelrc inside the project folder with the following code:
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
+
+--  Create a file named webpack.config.js and fill it
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      }
+    ]
+  }
+};
+
+-- install react and react-dom
+npm i react react-dom
+
+-- create react component under srs\js\components directory
+mkdir -p src/js/components/
+-- create AppForm.js  (see source file)
+-- webpack expects the entry point in src/index.js - create file and import AppForm.js  (see source file)
+
+-- html webpack plugin
+npm i html-webpack-plugin html-loader --save-dev
+-- update webpack.config.js  (see source file)
+
+-- create src/index.html (see source file)
+
+-- run build - dist directory will be created with index.html and main.js.  
+-- Open up dist/index.html in the browser -  should see the React form
+npm run build
+
+-- install webpack dev server for development 
+npm i webpack-dev-server --save-dev
+
+-- add start script in package.json
+"scripts": {
+  "start": "webpack-dev-server --open --mode development",
+  "build": "webpack --mode production"
+}
+
+-- start the development server,  the react form will be displayed in the browser on port 8080 - http://localhost:8080
+npm start
+
